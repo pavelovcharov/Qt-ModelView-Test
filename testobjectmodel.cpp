@@ -3,13 +3,32 @@
 TestObjectModel::TestObjectModel(QObject *parent)
     : QAbstractTableModel(parent)
 {
+    TestObject* test = new TestObject();
+    test->setProp1(1.01);
+    test->setProp2(1.02);
+    test->setProp3(1.03);
+    test->setProp4(1.04);
+    objects.push_back(test);
 }
 
 QVariant TestObjectModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
-    // FIXME: Implement me!
-}
+    if (role == Qt::DisplayRole)
+    {
+        if (orientation == Qt::Horizontal) {
+            switch (section)
+            {
+            case 0:
+                return QString("p1");
+            case 1:
+                return QString("p2");
 
+            }
+        }
+    }
+    return QVariant();
+}
+/*
 bool TestObjectModel::setHeaderData(int section, Qt::Orientation orientation, const QVariant &value, int role)
 {
     if (value != headerData(section, orientation, role)) {
@@ -20,29 +39,26 @@ bool TestObjectModel::setHeaderData(int section, Qt::Orientation orientation, co
     return false;
 }
 
-
+*/
 int TestObjectModel::rowCount(const QModelIndex &parent) const
 {
-    if (parent.isValid())
-        return 0;
-
-    // FIXME: Implement me!
+    return objects.size();
 }
 
 int TestObjectModel::columnCount(const QModelIndex &parent) const
 {
-    if (parent.isValid())
-        return 0;
-
-    // FIXME: Implement me!
+    return 2;
 }
 
 QVariant TestObjectModel::data(const QModelIndex &index, int role) const
 {
-    if (!index.isValid())
-        return QVariant();
-
-    // FIXME: Implement me!
+    if (index.isValid()){
+        if (role == Qt::DisplayRole)
+        {
+            TestObject* to = objects[index.row()];
+            return QString::number(index.column() == 0 ? to->prop1() : to->prop2());
+        }
+    }
     return QVariant();
 }
 
@@ -61,7 +77,7 @@ Qt::ItemFlags TestObjectModel::flags(const QModelIndex &index) const
     if (!index.isValid())
         return Qt::NoItemFlags;
 
-    return Qt::ItemIsEditable; // FIXME: Implement me!
+      return Qt::ItemIsEditable | QAbstractTableModel::flags(index);
 }
 
 bool TestObjectModel::insertRows(int row, int count, const QModelIndex &parent)

@@ -2,6 +2,8 @@
 #define TESTOBJECTMODEL_H
 
 #include <QAbstractTableModel>
+#include <QVector>
+#include "testobject.h"
 
 class TestObjectModel : public QAbstractTableModel
 {
@@ -13,7 +15,7 @@ public:
     // Header:
     QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const override;
 
-    bool setHeaderData(int section, Qt::Orientation orientation, const QVariant &value, int role = Qt::EditRole) override;
+//    bool setHeaderData(int section, Qt::Orientation orientation, const QVariant &value, int role = Qt::EditRole) override;
 
     // Basic functionality:
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
@@ -36,6 +38,7 @@ public:
     //bool removeColumns(int column, int count, const QModelIndex &parent = QModelIndex()) override;
 
 private:
+    QVector<TestObject*> objects;
 };
 
 #endif // TESTOBJECTMODEL_H
