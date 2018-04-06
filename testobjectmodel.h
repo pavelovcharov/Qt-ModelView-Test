@@ -37,9 +37,12 @@ public:
     bool removeRows(int row, int count, const QModelIndex &parent = QModelIndex()) override;
     //bool removeColumns(int column, int count, const QModelIndex &parent = QModelIndex()) override;
 
+    bool moveRows(const QModelIndex &sourceParent, int sourceRow, int count, const QModelIndex &destinationParent, int destinationChild) override;
+
    bool insertRow(int row);
    bool removeRow(int row);
-
+   bool moveRowUp(int row);
+   bool moveRowDown(int row);
 private:
     QVector<TestObject*> objects;
 };

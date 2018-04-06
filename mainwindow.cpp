@@ -28,10 +28,10 @@ void MainWindow::on_pushButton_Remove_clicked()
 
 void MainWindow::on_pushButton_Down_clicked()
 {
-
+    model->moveRowDown(ui->tableView->currentIndex().row());
 }
 
 void MainWindow::on_pushButton_Up_clicked()
 {
-
+    model->moveRowUp(ui->tableView->currentIndex().row());
 }

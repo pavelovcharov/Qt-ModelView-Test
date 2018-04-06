@@ -118,13 +118,36 @@ bool TestObjectModel::removeRows(int row, int count, const QModelIndex &parent)
 bool TestObjectModel::insertRow(int row)
 {
     //TODO: check row is valid
-    insertRows(row, 1);
+    return insertRows(row, 1);
 }
 
 bool TestObjectModel::removeRow(int row)
 {
     //TODO: check row is valid
-    removeRows(row, 1);
+    return removeRows(row, 1);
+}
+
+bool TestObjectModel::moveRows(const QModelIndex &sourceParent, int sourceRow, int count, const QModelIndex &destinationParent, int destinationChild) {
+    if(count != 1 || destinationChild < 0 || destinationChild >= rowCount()) return false;
+    beginMoveRows(sourceParent, sourceRow, sourceRow, destinationParent, sourceRow < destinationChild ? destinationChild+1 : destinationChild);
+    TestObject* to1 = objects[sourceRow];
+    TestObject* to2 = objects[destinationChild];
+    objects[sourceRow] = to2;
+    objects[destinationChild] = to1;
+    endMoveRows();
+    return true;
+}
+
+bool TestObjectModel::moveRowUp(int row)
+{
+    QModelIndex sourceParent = index(row, 0);
+    return moveRow(sourceParent, row, sourceParent, row - 1);
+}
+
+bool TestObjectModel::moveRowDown(int row)
+{
+    QModelIndex sourceParent = index(row, 0);
+    return moveRow(sourceParent, row, sourceParent, row + 1);
 }
 
 //bool TestObjectModel::removeColumns(int column, int count, const QModelIndex &parent)
