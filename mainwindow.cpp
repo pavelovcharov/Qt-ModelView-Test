@@ -18,12 +18,12 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButton_Add_clicked()
 {
-
+    model->insertRow(model->rowCount());
 }
 
 void MainWindow::on_pushButton_Remove_clicked()
 {
-
+    model->removeRow(ui->tableView->currentIndex().row());
 }
 
 void MainWindow::on_pushButton_Down_clicked()

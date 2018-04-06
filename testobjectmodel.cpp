@@ -65,7 +65,16 @@ QVariant TestObjectModel::data(const QModelIndex &index, int role) const
 bool TestObjectModel::setData(const QModelIndex &index, const QVariant &value, int role)
 {
     if (data(index, role) != value) {
-        // FIXME: Implement me!
+        TestObject* to = objects[index.row()];
+        switch (index.column()) {
+        case 0:
+            to->setProp1(value.toDouble());
+            break;
+        case 1:
+            to->setProp2(value.toDouble());
+        default:
+            break;
+        }
         emit dataChanged(index, index, QVector<int>() << role);
         return true;
     }
@@ -83,7 +92,10 @@ Qt::ItemFlags TestObjectModel::flags(const QModelIndex &index) const
 bool TestObjectModel::insertRows(int row, int count, const QModelIndex &parent)
 {
     beginInsertRows(parent, row, row + count - 1);
-    // FIXME: Implement me!
+    TestObject* to = new TestObject();
+    to->setProp1(99);
+    to->setProp2(0.99);
+    objects.insert(row, to);
     endInsertRows();
 }
 
@@ -97,8 +109,22 @@ bool TestObjectModel::insertRows(int row, int count, const QModelIndex &parent)
 bool TestObjectModel::removeRows(int row, int count, const QModelIndex &parent)
 {
     beginRemoveRows(parent, row, row + count - 1);
-    // FIXME: Implement me!
+    TestObject* to = objects[row];
+    objects.remove(row);
+    delete to;
     endRemoveRows();
+}
+
+bool TestObjectModel::insertRow(int row)
+{
+    //TODO: check row is valid
+    insertRows(row, 1);
+}
+
+bool TestObjectModel::removeRow(int row)
+{
+    //TODO: check row is valid
+    removeRows(row, 1);
 }
 
 //bool TestObjectModel::removeColumns(int column, int count, const QModelIndex &parent)
