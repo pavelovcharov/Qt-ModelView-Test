@@ -28,13 +28,15 @@ SOURCES += \
         mainwindow.cpp \
     testobject.cpp \
     testobjectmodel.cpp \
-    testobjectdetailsmodel.cpp
+    testobjectdetailsmodel.cpp \
+    testobjectdelegate.cpp
 
 HEADERS += \
         mainwindow.h \
     testobject.h \
     testobjectmodel.h \
-    testobjectdetailsmodel.h
+    testobjectdetailsmodel.h \
+    testobjectdelegate.h
 
 FORMS += \
         mainwindow.ui

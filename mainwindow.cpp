@@ -16,6 +16,9 @@ MainWindow::MainWindow(QWidget *parent) :
     selectionModel = ui->tableView->selectionModel();
     connect(selectionModel, SIGNAL(selectionChanged (const QItemSelection &, const QItemSelection &)),
             this, SLOT(selectionChangedSlot(const QItemSelection &, const QItemSelection &)));
+
+    ui->tableView->setItemDelegate(&testObjectDelegate);
+    ui->tableView_2->setItemDelegate(&testObjectDelegate);
 }
 
 MainWindow::~MainWindow()

@@ -52,7 +52,7 @@ int TestObjectDetailsModel::columnCount(const QModelIndex &parent) const
 QVariant TestObjectDetailsModel::data(const QModelIndex &index, int role) const
 {
     if (index.isValid() && _testObject != 0){
-        if (role == Qt::DisplayRole)
+        if (role == Qt::DisplayRole || role == Qt::EditRole)
         {
             return QString::number(index.column() == 0 ? _testObject->prop3() : _testObject->prop4());
         }

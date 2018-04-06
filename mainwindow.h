@@ -5,6 +5,7 @@
 #include <QItemSelectionModel>
 #include "testobjectmodel.h"
 #include "testobjectdetailsmodel.h"
+#include "testobjectdelegate.h"
 
 namespace Ui {
 class MainWindow;
@@ -33,6 +34,7 @@ private:
     TestObjectModel* model;
     TestObjectDetailsModel* detailsModel;
     QItemSelectionModel* selectionModel;
+    TestObjectDelegate testObjectDelegate;
 };
 
 #endif // MAINWINDOW_H
