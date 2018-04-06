@@ -28,10 +28,22 @@ void MainWindow::on_pushButton_Remove_clicked()
 
 void MainWindow::on_pushButton_Down_clicked()
 {
-    model->moveRowDown(ui->tableView->currentIndex().row());
+    QModelIndex current = ui->tableView->currentIndex();
+    model->moveRowDown(current.row());
+    if(current.row() < model->rowCount() - 1) {
+        QModelIndex newIndex  = model->index(current.row() + 1, current.column());
+        ui->tableView->selectionModel()->select(newIndex, QItemSelectionModel::Select);
+        ui->tableView->setCurrentIndex(newIndex);
+    }
 }
 
 void MainWindow::on_pushButton_Up_clicked()
 {
+    QModelIndex current = ui->tableView->currentIndex();
     model->moveRowUp(ui->tableView->currentIndex().row());
+    if(current.row() > 0) {
+        QModelIndex newIndex  = model->index(current.row() - 1, current.column());
+        ui->tableView->selectionModel()->select(newIndex, QItemSelectionModel::Select);
+        ui->tableView->setCurrentIndex(newIndex);
+    }
 }
