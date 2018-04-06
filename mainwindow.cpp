@@ -9,6 +9,13 @@ MainWindow::MainWindow(QWidget *parent) :
 
     model = new TestObjectModel();
     ui->tableView->setModel(model);
+
+    detailsModel = new TestObjectDetailsModel();
+    ui->tableView_2->setModel(detailsModel);
+
+    selectionModel = ui->tableView->selectionModel();
+    connect(selectionModel, SIGNAL(selectionChanged (const QItemSelection &, const QItemSelection &)),
+            this, SLOT(selectionChangedSlot(const QItemSelection &, const QItemSelection &)));
 }
 
 MainWindow::~MainWindow()
@@ -46,4 +53,12 @@ void MainWindow::on_pushButton_Up_clicked()
         ui->tableView->selectionModel()->select(newIndex, QItemSelectionModel::Select);
         ui->tableView->setCurrentIndex(newIndex);
     }
+}
+
+void MainWindow::selectionChangedSlot(const QItemSelection & /*newSelection*/, const QItemSelection & /*oldSelection*/)
+{
+    const QModelIndex index = ui->tableView->selectionModel()->currentIndex();
+    if(!index.isValid()) return;
+    TestObject* to = model->getTestObject(index.row());
+    detailsModel->setTestObject(to);
 }

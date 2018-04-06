@@ -150,9 +150,7 @@ bool TestObjectModel::moveRowDown(int row)
     return moveRow(sourceParent, row, sourceParent, row + 1);
 }
 
-//bool TestObjectModel::removeColumns(int column, int count, const QModelIndex &parent)
-//{
-//    beginRemoveColumns(parent, column, column + count - 1);
-//    // FIXME: Implement me!
-//    endRemoveColumns();
-//}
+TestObject *TestObjectModel::getTestObject(int index)
+{
+    return objects[index];
+}

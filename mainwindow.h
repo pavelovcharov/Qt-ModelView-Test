@@ -2,7 +2,9 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QItemSelectionModel>
 #include "testobjectmodel.h"
+#include "testobjectdetailsmodel.h"
 
 namespace Ui {
 class MainWindow;
@@ -25,9 +27,12 @@ private slots:
 
     void on_pushButton_Up_clicked();
 
+    void selectionChangedSlot(const QItemSelection & newSelection, const QItemSelection & oldSelection);
 private:
     Ui::MainWindow *ui;
     TestObjectModel* model;
+    TestObjectDetailsModel* detailsModel;
+    QItemSelectionModel* selectionModel;
 };
 
 #endif // MAINWINDOW_H

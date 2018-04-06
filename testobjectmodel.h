@@ -43,6 +43,8 @@ public:
    bool removeRow(int row);
    bool moveRowUp(int row);
    bool moveRowDown(int row);
+
+   TestObject* getTestObject(int index);
 private:
     QVector<TestObject*> objects;
 };
